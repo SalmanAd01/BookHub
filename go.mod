@@ -7,7 +7,10 @@ require (
 	github.com/lib/pq v1.10.4
 )
 
-require github.com/joho/godotenv v1.4.0 // indirect
+require (
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
+	github.com/joho/godotenv v1.4.0 // indirect
+)
 
 require (
 	github.com/xhit/go-simple-mail v2.2.2+incompatible

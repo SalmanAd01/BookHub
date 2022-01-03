@@ -21,6 +21,7 @@ func SignupPost(w http.ResponseWriter, r *http.Request) {
 	rows, err := db.Query(query)
 	if err != nil {
 		fmt.Println("Some Error occurred")
+		w.Write([]byte("User Already Exists"))
 	}
 	defer rows.Close()
 	if rows.Next() {

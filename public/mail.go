@@ -16,11 +16,11 @@ var htmlBody = `
    <title>Hello, World</title>
 </head>
 <body>
-   <p>This is an email using Go</p>
-</body>
+   <p>Click The Link To Login</p>
+
 `
 
-func goDotEnvVariable(key string) string {
+func GoDotEnvVariable(key string) string {
 
 	// load .env file
 	err := godotenv.Load(".env")
@@ -35,8 +35,8 @@ func SendMail(to string, subject string, body string) {
 	server := mail.NewSMTPClient()
 	server.Host = "smtp.gmail.com"
 	server.Port = 587
-	server.Username = goDotEnvVariable("EMAIL")
-	server.Password = goDotEnvVariable("PASSWORD")
+	server.Username = GoDotEnvVariable("EMAIL")
+	server.Password = GoDotEnvVariable("PASSWORD")
 	server.Encryption = mail.EncryptionTLS
 	smtpClient, err := server.Connect()
 	if err != nil {
@@ -46,7 +46,7 @@ func SendMail(to string, subject string, body string) {
 	email.AddTo(to)
 	email.SetSubject(subject)
 
-	email.SetBody(mail.TextHTML, htmlBody)
+	email.SetBody(mail.TextHTML, htmlBody+"<p>"+body+"</p></body>")
 	err = email.Send(smtpClient)
 	if err != nil {
 		log.Fatal(err)
