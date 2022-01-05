@@ -6,9 +6,13 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
+	"github.com/gorilla/sessions"
 	"golang.org/x/crypto/scrypt"
 )
+
+var Store = sessions.NewCookieStore([]byte(os.Getenv("SECRET")))
 
 func SigninGet(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("GET")
@@ -16,9 +20,11 @@ func SigninGet(w http.ResponseWriter, r *http.Request) {
 }
 func SigninPost(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("POST")
+	username := r.FormValue("username")
 	email := r.FormValue("email")
 	password := r.FormValue("password")
 	fmt.Println("password ", password)
+	fmt.Println("username ", username)
 	salt := []byte(GoDotEnvVariable("SALT"))
 	hashpwd, err := scrypt.Key([]byte(password), salt, 16384, 8, 1, 32)
 	password = hex.EncodeToString(hashpwd)
@@ -36,7 +42,10 @@ func SigninPost(w http.ResponseWriter, r *http.Request) {
 	}
 	defer rows.Close()
 	if rows.Next() {
-		http.Redirect(w, r, "/signin", http.StatusFound)
+		session, _ := Store.Get(r, "auth-session")
+		session.Values["username"] = username
+		session.Save(r, w)
+		http.Redirect(w, r, "/dashboard", 302)
 	} else {
 		fmt.Println("No rows")
 		w.Write([]byte("Signup unSuccessful"))
