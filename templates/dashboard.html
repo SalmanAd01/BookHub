@@ -1,15 +1,100 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
 </head>
 
 <body>
-    <h2>Dashboard</h2>
+    <div class="container mt-5">
+        <h1>Dashboard</h1>
+    </div>
+    <div class="container mt-5">
+        <form class="row g-3 needs-validation" validate>
+            <div class="col-md-4 position-relative">
+                <label for="validationTooltip01" class="form-label">Author Name</label>
+                <input type="text" name="authorname" class="form-control" id="validationTooltip01" value="Mark"
+                    required>
+                <div class="valid-tooltip">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-5 position-relative">
+                <label for="validationTooltip02" class="form-label">Subject Name</label>
+                <input type="text" name="subjectName" class="form-control" id="validationTooltip02" value="Otto"
+                    required>
+                <div class="valid-tooltip">
+                    Looks good!
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <select class="form-select" required aria-label="select example">
+                    <option value="1">Sem1</option>
+                    <option value="2">Sem2</option>
+                    <option value="3">Sem3</option>
+                    <option value="4">Sem4</option>
+                    <option value="5">Sem5</option>
+                    <option value="6">Sem6</option>
+                    <option value="7">Sem7</option>
+                    <option value="8">Sem8</option>
+                </select>
+                <div class="invalid-feedback">Example invalid select feedback</div>
+            </div>
+            <div class="mb-3">
+                <select class="form-select" required aria-label="select example">
+                    <option value="1">Computer Engineer</option>
+                    <option value="2">Civil Engineer</option>
+                    <option value="3">Electrical Engineer</option>
+                    <option value="4">Mechanical Engineer</option>
+                    <option value="5">Electronics Engineer</option>
+                    <option value="6">Chemical Engineer</option>
+                    <option value="7">Biotechnology Engineer</option>
+                    <option value="8">Pharmacy Engineer</option>
+                    <option value="9">IT Engineer</option>
+
+                </select>
+                <div class="invalid-feedback">Example invalid select feedback</div>
+            </div>
+            <div class="mb-3">
+                <select class="form-select" required aria-label="select example">
+                    <option value="1">Mumbai University</option>
+                </select>
+                <div class="invalid-feedback">Example invalid select feedback</div>
+            </div>
+            <div class="col-mb-5 position-relative">
+                <input type="file" class="form-control" aria-label="file example" accept=".pdf" required>
+                <div class="invalid-feedback">Example invalid form file feedback</div>
+            </div>
+
+            <div class="mb-3">
+                <button class="btn btn-primary" type="submit">Submit form</button>
+            </div>
+    </div>
+
+    </form>
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
 </body>
 
 </html>
