@@ -54,6 +54,3 @@ func SendMail(to string, subject string, body string) {
 
 	fmt.Println("Successfully sent mail to all user in toList")
 }
-func main() {
-	fmt.Println("Hello")
-}
