@@ -14,6 +14,7 @@ require (
 )
 
 require (
+	github.com/gorilla/schema v1.2.0
 	github.com/gorilla/sessions v1.2.1
 	github.com/shaj13/go-guardian/v2 v2.11.3
 	github.com/shaj13/libcache v1.0.0

@@ -18,7 +18,7 @@
         <h1>Dashboard</h1>
     </div>
     <div class="container mt-5">
-        <form class="row g-3 needs-validation" validate>
+        <form class="row g-3 needs-validation" action="/dashboard" method="post" validate>
             <div class="col-md-4 position-relative">
                 <label for="validationTooltip01" class="form-label">Author Name</label>
                 <input type="text" name="authorname" class="form-control" id="validationTooltip01" value="Mark"
@@ -29,7 +29,7 @@
             </div>
             <div class="col-md-5 position-relative">
                 <label for="validationTooltip02" class="form-label">Subject Name</label>
-                <input type="text" name="subjectName" class="form-control" id="validationTooltip02" value="Otto"
+                <input type="text" name="subjectname" class="form-control" id="validationTooltip02" value="Otto"
                     required>
                 <div class="valid-tooltip">
                     Looks good!
@@ -37,41 +37,42 @@
             </div>
 
             <div class="mb-3">
-                <select class="form-select" required aria-label="select example">
-                    <option value="1">Sem1</option>
-                    <option value="2">Sem2</option>
-                    <option value="3">Sem3</option>
-                    <option value="4">Sem4</option>
-                    <option value="5">Sem5</option>
-                    <option value="6">Sem6</option>
-                    <option value="7">Sem7</option>
-                    <option value="8">Sem8</option>
+                <select class="form-select" name="semnumber" required aria-label="select example">
+                    <option value="Sem1">Sem1</option>
+                    <option value="Sem2">Sem2</option>
+                    <option value="Sem3">Sem3</option>
+                    <option value="Sem4">Sem4</option>
+                    <option value="Sem5">Sem5</option>
+                    <option value="Sem6">Sem6</option>
+                    <option value="Sem7">Sem7</option>
+                    <option value="Sem8">Sem8</option>
                 </select>
                 <div class="invalid-feedback">Example invalid select feedback</div>
             </div>
             <div class="mb-3">
-                <select class="form-select" required aria-label="select example">
-                    <option value="1">Computer Engineer</option>
-                    <option value="2">Civil Engineer</option>
-                    <option value="3">Electrical Engineer</option>
-                    <option value="4">Mechanical Engineer</option>
-                    <option value="5">Electronics Engineer</option>
-                    <option value="6">Chemical Engineer</option>
-                    <option value="7">Biotechnology Engineer</option>
-                    <option value="8">Pharmacy Engineer</option>
-                    <option value="9">IT Engineer</option>
+                <select class="form-select" name="branch" required aria-label="select example">
+                    <option value="Computer Engineer">Computer Engineer</option>
+                    <option value="Civil Engineer">Civil Engineer</option>
+                    <option value="Electrical Engineer">Electrical Engineer</option>
+                    <option value="Mechanical Engineer">Mechanical Engineer</option>
+                    <option value="Electronics Engineer">Electronics Engineer</option>
+                    <option value="Chemical Engineer">Chemical Engineer</option>
+                    <option value="Biotechnology Engineer">Biotechnology Engineer</option>
+                    <option value="Pharmacy Engineer">Pharmacy Engineer</option>
+                    <option value="IT Engineer">IT Engineer</option>
 
                 </select>
                 <div class="invalid-feedback">Example invalid select feedback</div>
             </div>
             <div class="mb-3">
-                <select class="form-select" required aria-label="select example">
-                    <option value="1">Mumbai University</option>
+                <select class="form-select" name="universityname" required aria-label="select example">
+                    <option value="Mumbai University">Mumbai University</option>
                 </select>
                 <div class="invalid-feedback">Example invalid select feedback</div>
             </div>
             <div class="col-mb-5 position-relative">
-                <input type="file" class="form-control" aria-label="file example" accept=".pdf" required>
+                <input type="file" name="bookfile" class="form-control" aria-label="file example" accept=".pdf"
+                    required>
                 <div class="invalid-feedback">Example invalid form file feedback</div>
             </div>
 

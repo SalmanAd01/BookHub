@@ -1,6 +1,7 @@
 package public
 
 import (
+	"Bookhub/models"
 	"encoding/hex"
 	"fmt"
 	"log"
@@ -8,6 +9,7 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
+	"github.com/gorilla/schema"
 	"golang.org/x/crypto/scrypt"
 )
 
@@ -35,19 +37,24 @@ func SignupPost(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "ParseForm() err: %v", err)
 		return
 	}
-	name, email, password := r.FormValue("name"), r.FormValue("email"), r.FormValue("password")
+	var decoder = schema.NewDecoder()
+	var user models.User
+	err := decoder.Decode(&user, r.PostForm)
+	if err != nil {
+		fmt.Println("Error in decoding", err)
+	}
 	salt := []byte(GoDotEnvVariable("SALT"))
-	hashpwd, err := scrypt.Key([]byte(password), salt, 16384, 8, 1, 32)
-	password = hex.EncodeToString(hashpwd)
+	hashpwd, err := scrypt.Key([]byte(user.Password), salt, 16384, 8, 1, 32)
+	user.Password = hex.EncodeToString(hashpwd)
 	if err != nil {
 		log.Println(err)
 	}
-	fmt.Println(name, email, password)
+	fmt.Println(user.Name, user.Email, user.Password)
 	expirationTime := time.Now().Add(5 * time.Minute)
 	claims := &Claims{
-		Username: name,
-		Email:    email,
-		Password: password,
+		Username: user.Name,
+		Email:    user.Email,
+		Password: user.Password,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: expirationTime.Unix(),
 		},
@@ -61,7 +68,7 @@ func SignupPost(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println("token ", tokenString)
 	fmt.Println("--->>> ", r.Host)
-	SendMail(email, "Mail Authentication", "http://"+r.Host+"/verifytoken/"+tokenString)
+	SendMail(user.Email, "Mail Authentication", "http://"+r.Host+"/verifytoken/"+tokenString)
 	http.Redirect(w, r, "/signup", http.StatusFound)
 
 }
