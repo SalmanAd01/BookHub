@@ -2,7 +2,7 @@ package main
 
 import (
 	"Bookhub/middleware/auth"
-	public "Bookhub/public"
+	"Bookhub/public"
 	"fmt"
 	"log"
 	"net/http"

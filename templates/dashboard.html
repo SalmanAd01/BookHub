@@ -18,7 +18,7 @@
         <h1>Dashboard</h1>
     </div>
     <div class="container mt-5">
-        <form class="row g-3 needs-validation" action="/dashboard" method="post" validate>
+        <form class="row g-3 needs-validation" action="/dashboard" enctype="multipart/form-data" method="post" validate>
             <div class="col-md-4 position-relative">
                 <label for="validationTooltip01" class="form-label">Author Name</label>
                 <input type="text" name="authorname" class="form-control" id="validationTooltip01" value="Mark"
@@ -73,7 +73,10 @@
             <div class="col-mb-5 position-relative">
                 <input type="file" name="bookfile" class="form-control" aria-label="file example" accept=".pdf"
                     required>
-                <div class="invalid-feedback">Example invalid form file feedback</div>
+            </div>
+            <div class="col-mb-5 position-relative">
+                <input type="file" name="bannerimage" class="form-control" aria-label="file example"
+                    accept=".png,.jpg,.jpeg" required>
             </div>
 
             <div class="mb-3">

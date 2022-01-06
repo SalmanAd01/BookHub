@@ -7,4 +7,5 @@ type Book struct {
 	Branch         string `json:"branch"`
 	Universityname string `json:"universityname"`
 	Bookfile       string `json:"bookfile"`
+	Bannerimage    string `json:"bannerimage"`
 }
