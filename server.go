@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"os"
 
 	"github.com/gorilla/mux"
 	_ "github.com/lib/pq"
@@ -24,6 +23,6 @@ func main() {
 	router.HandleFunc("/dashboard", auth.IsAuth(public.Dashboard)).Methods("GET")
 	router.HandleFunc("/dashboard", auth.IsAuth(public.DashboardPost)).Methods("POST")
 	router.HandleFunc("/logout", auth.IsAuth(public.Logout)).Methods("GET")
-	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), router))
+	log.Fatal(http.ListenAndServe(":5000", router))
 
 }
