@@ -33,8 +33,8 @@ func Home(w http.ResponseWriter, r *http.Request) {
 		}
 		book.Image = strings.Replace(book.Image, "\\", "/", -1)
 		book.Location = strings.Replace(book.Location, "\\", "/", -1)
-		book.Location = book.Location[60:]
-		book.Image = book.Image[40:]
+		// book.Location = book.Location[60:]
+		// book.Image = book.Image[40:]
 		bookinfo = append(bookinfo, book)
 
 		fmt.Println("bookinfo ", bookinfo)

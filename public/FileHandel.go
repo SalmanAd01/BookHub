@@ -47,7 +47,7 @@ func SaveFileToDestination(sub string, sem string, uni string, r *http.Request) 
 	}
 	fmt.Println("fileextension", fileextension)
 	fmt.Println("renameing file ....", newname)
-	return newfilepath, nil
+	return newfilename, nil
 }
 func SaveImgToDestination(sub string, sem string, uni string, r *http.Request) (string, error) {
 	_, file, err := r.FormFile("bannerimage")
@@ -81,7 +81,7 @@ func SaveImgToDestination(sub string, sem string, uni string, r *http.Request) (
 		return "", err
 	}
 
-	return newfilepath, nil
+	return "/static/bookinfo/img/" + newfilename, nil
 }
 func createFileHash(filename string) (string, extesion string) {
 	salt := []byte(os.Getenv("FILESALT"))
