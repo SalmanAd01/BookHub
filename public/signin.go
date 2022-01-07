@@ -42,11 +42,10 @@ func SigninPost(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("password ", user.Password)
 	fmt.Println("email ", user.Email)
 	db := models.SetupDB()
-	query := "SELECT * FROM userinfo WHERE email = '" + user.Email + "' AND password = '" + user.Password + "'"
+	query := "SELECT id FROM userinfo WHERE email = '" + user.Email + "' AND password = '" + user.Password + "'"
 	rows, err := db.Query(query)
 	if err != nil {
 		fmt.Println("Some Error occurred")
-		w.Write([]byte("User Already Exists"))
 	}
 	defer rows.Close()
 	if rows.Next() {
@@ -56,7 +55,14 @@ func SigninPost(w http.ResponseWriter, r *http.Request) {
 			MaxAge:   900,
 			HttpOnly: true,
 		}
+		fmt.Println("rows ", rows)
 		session.Values["username"] = user.Name
+		var id int
+		err = rows.Scan(&id)
+		if err != nil {
+			fmt.Println("Error in scanning")
+		}
+		session.Values["userid"] = id
 		session.Save(r, w)
 		http.Redirect(w, r, "/dashboard", http.StatusFound)
 	} else {
