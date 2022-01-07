@@ -4,6 +4,7 @@ import (
 	"Bookhub/models"
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gorilla/mux"
@@ -20,7 +21,7 @@ func VerifyJWT(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("claims -->> ", claims)
 	tkn, err := jwt.ParseWithClaims(vars, claims, func(token *jwt.Token) (interface{}, error) {
-		return []byte(GoDotEnvVariable("JWT")), nil
+		return []byte(os.Getenv("JWT")), nil
 	})
 	if err != nil {
 		if err == jwt.ErrSignatureInvalid {

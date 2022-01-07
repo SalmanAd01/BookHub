@@ -8,10 +8,16 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )
 
 func main() {
+	err := godotenv.Load(".env")
+
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+	}
 	fmt.Println("http://localhost:5000/")
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", auth.IsNotAuth(public.Home)).Methods("GET")

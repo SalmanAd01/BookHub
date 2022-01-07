@@ -84,7 +84,7 @@ func SaveImgToDestination(sub string, sem string, uni string, r *http.Request) (
 	return newfilepath, nil
 }
 func createFileHash(filename string) (string, extesion string) {
-	salt := []byte(GoDotEnvVariable("FILESALT"))
+	salt := []byte(os.Getenv("FILESALT"))
 	hashpwd, err := scrypt.Key([]byte(filename), salt, 16384, 8, 1, 32)
 	extesion = filepath.Ext(filename)
 	filename = hex.EncodeToString(hashpwd)

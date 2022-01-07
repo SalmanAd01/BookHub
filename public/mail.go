@@ -5,7 +5,6 @@ import (
 	"log"
 	"os"
 
-	"github.com/joho/godotenv"
 	mail "github.com/xhit/go-simple-mail"
 )
 
@@ -20,23 +19,12 @@ var htmlBody = `
 
 `
 
-func GoDotEnvVariable(key string) string {
-
-	// load .env file
-	err := godotenv.Load(".env")
-
-	if err != nil {
-		log.Fatalf("Error loading .env file")
-	}
-
-	return os.Getenv(key)
-}
 func SendMail(to string, subject string, body string) {
 	server := mail.NewSMTPClient()
 	server.Host = "smtp.gmail.com"
 	server.Port = 587
-	server.Username = GoDotEnvVariable("EMAIL")
-	server.Password = GoDotEnvVariable("PASSWORD")
+	server.Username = os.Getenv("EMAIL")
+	server.Password = os.Getenv("PASSWORD")
 	server.Encryption = mail.EncryptionTLS
 	smtpClient, err := server.Connect()
 	if err != nil {

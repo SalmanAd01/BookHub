@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -43,7 +44,7 @@ func SignupPost(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println("Error in decoding", err)
 	}
-	salt := []byte(GoDotEnvVariable("SALT"))
+	salt := []byte(os.Getenv("SALT"))
 	hashpwd, err := scrypt.Key([]byte(user.Password), salt, 16384, 8, 1, 32)
 	user.Password = hex.EncodeToString(hashpwd)
 	if err != nil {
@@ -61,7 +62,7 @@ func SignupPost(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println("claims ", claims)
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	tokenString, err := token.SignedString([]byte(GoDotEnvVariable("JWT")))
+	tokenString, err := token.SignedString([]byte(os.Getenv("JWT")))
 	if err != nil {
 		fmt.Println("err ", err)
 		return

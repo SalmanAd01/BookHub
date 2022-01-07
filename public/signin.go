@@ -33,7 +33,7 @@ func SigninPost(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println("password --->>", user.Password)
 	fmt.Println("username -->>>", user.Name)
-	salt := []byte(GoDotEnvVariable("SALT"))
+	salt := []byte(os.Getenv("SALT"))
 	hashpwd, err := scrypt.Key([]byte(user.Password), salt, 16384, 8, 1, 32)
 	user.Password = hex.EncodeToString(hashpwd)
 	if err != nil {
