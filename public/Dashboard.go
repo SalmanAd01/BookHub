@@ -28,6 +28,13 @@ func DashboardPost(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("err ", err, " name ", name)
 	name, err = SaveImgToDestination(book.Subjectname+"-", book.Semnumber+"-", book.Universityname+"-", r)
 	fmt.Println("err ", err, " name ", name)
+	session, err := Store.Get(r, "auth-session")
+	if err != nil {
+		fmt.Println("Error in getting session", err)
+	}
+	currentUser := session.Values["username"]
+	session.Save(r, w)
+	fmt.Println("currentUser ", currentUser)
 	http.Redirect(w, r, "/dashboard", http.StatusFound)
 
 }

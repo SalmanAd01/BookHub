@@ -52,9 +52,8 @@ func SigninPost(w http.ResponseWriter, r *http.Request) {
 	if rows.Next() {
 		session, _ := Store.Get(r, "auth-session")
 		session.Options = &sessions.Options{
-			Path:   "/",
-			MaxAge: 900,
-			// MaxAge:   5,
+			Path:     "/",
+			MaxAge:   900,
 			HttpOnly: true,
 		}
 		session.Values["username"] = user.Name
