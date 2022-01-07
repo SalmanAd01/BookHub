@@ -59,7 +59,7 @@ func SigninPost(w http.ResponseWriter, r *http.Request) {
 		}
 		session.Values["username"] = user.Name
 		session.Save(r, w)
-		http.Redirect(w, r, "/dashboard", 302)
+		http.Redirect(w, r, "/dashboard", http.StatusFound)
 	} else {
 		fmt.Println("No rows")
 		w.Write([]byte("Signup unSuccessful"))
