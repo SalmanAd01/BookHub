@@ -4,7 +4,6 @@ import (
 	"Bookhub/models"
 	"fmt"
 	"net/http"
-	"strings"
 	"text/template"
 )
 
@@ -31,10 +30,6 @@ func Home(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			fmt.Println("Error in scanning bookinfo", err)
 		}
-		book.Bannerimage = strings.Replace(book.Bannerimage, "\\", "/", -1)
-		book.Bookfile = strings.Replace(book.Bookfile, "\\", "/", -1)
-		// book.Location = book.Location[60:]
-		// book.Image = book.Image[40:]
 		bookinfo = append(bookinfo, book)
 
 		fmt.Println("bookinfo ", bookinfo)

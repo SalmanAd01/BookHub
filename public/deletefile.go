@@ -1,6 +1,7 @@
 package public
 
 import (
+	"Bookhub/models"
 	"fmt"
 	"net/http"
 	"os"
@@ -15,6 +16,7 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 	name := r.URL.Query().Get("name")
 	password := r.URL.Query().Get("password")
 	fileType := r.URL.Query().Get("type")
+	isDB := r.URL.Query().Get("db")
 	fmt.Println(bookpath, " ", name, " ", password)
 	if name != os.Getenv("ADMIN_NAME") || password != os.Getenv("ADMIN_PASSWORD") || (fileType != "pdf" && fileType != "img") {
 		fmt.Fprintf(w, "Invalid credentials")
@@ -22,13 +24,25 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 	}
 	file, err := os.Getwd()
 	if err != nil {
-		fmt.Println("Error in getting file", err)
+		fmt.Fprintf(w, "Error in getting file")
+		return
 	}
 	err = os.Remove(filepath.Join(file + "/static/bookinfo/" + fileType + "/" + bookpath))
 	if err != nil {
 		fmt.Fprintf(w, "Error deleting file")
 		return
 	}
+	if isDB == "true" {
+		db := models.SetupDB()
+		defer db.Close()
+		query := "DELETE FROM bookinfo WHERE bookpath = $1"
+		_, err = db.Exec(query, bookpath)
+		if err != nil {
+			fmt.Fprintf(w, "Error deleting from database")
+			return
+		}
+	}
+
 	fmt.Println("error", err)
 	fmt.Fprintf(w, "File deleted successfully")
 }

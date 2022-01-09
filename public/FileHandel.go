@@ -81,7 +81,7 @@ func SaveImgToDestination(sub string, sem string, uni string, r *http.Request) (
 		return "", err
 	}
 
-	return "/static/bookinfo/img/" + newfilename, nil
+	return newfilename, nil
 }
 func createFileHash(filename string) (string, extesion string) {
 	salt := []byte(os.Getenv("FILESALT"))
