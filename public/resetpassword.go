@@ -29,7 +29,8 @@ func ResetPasswordGet(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("rows ", rows)
 		// w.Write([]byte("Check your email for reset password link"))
 	} else {
-		// w.Write([]byte("Email not found"))
+		w.Write([]byte("Email not found"))
+		return
 	}
 	expirationTime := time.Now().Add(5 * time.Minute)
 	claims := &Claims{

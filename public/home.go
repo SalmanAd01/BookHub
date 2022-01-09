@@ -7,12 +7,6 @@ import (
 	"text/template"
 )
 
-type tempStrcut struct {
-	Name     string
-	Image    string
-	Location string
-}
-
 func Home(w http.ResponseWriter, r *http.Request) {
 	db := models.SetupDB()
 	query := "SELECT bookpath,imgpath,subjectname,semester,universityname,branch FROM bookinfo"

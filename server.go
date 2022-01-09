@@ -21,7 +21,7 @@ func main() {
 	fmt.Println("http://localhost:5000/")
 	router := mux.NewRouter().StrictSlash(true)
 	router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
-	router.HandleFunc("/", auth.IsNotAuth(public.Home)).Methods("GET")
+	router.HandleFunc("/", (public.Home)).Methods("GET")
 	router.HandleFunc("/signin", auth.IsNotAuth(public.SigninGet)).Methods("GET")
 	router.HandleFunc("/signin", auth.IsNotAuth(public.SigninPost)).Methods("POST")
 	router.HandleFunc("/signup", auth.IsNotAuth(public.SignupGet)).Methods("GET")
