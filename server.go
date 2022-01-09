@@ -9,15 +9,16 @@ import (
 	"os"
 
 	"github.com/gorilla/mux"
+	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )
 
 func main() {
-	// err := godotenv.Load(".env")
+	err := godotenv.Load(".env")
 
-	// if err != nil {
-	// 	log.Fatalf("Error loading .env file")
-	// }
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+	}
 	fmt.Println("http://localhost:5000/")
 	router := mux.NewRouter().StrictSlash(true)
 	router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
@@ -27,6 +28,9 @@ func main() {
 	router.HandleFunc("/signup", auth.IsNotAuth(public.SignupGet)).Methods("GET")
 	router.HandleFunc("/signup", auth.IsNotAuth(public.SignupPost)).Methods("POST")
 	router.HandleFunc("/verifytoken/{token}", public.VerifyJWT).Methods("GET")
+	router.HandleFunc("/forgotpassword/{token}", auth.IsNotAuth(public.ForgotPasswordGet)).Methods("GET")
+	router.HandleFunc("/forgotpassword/{token}", auth.IsNotAuth(public.ForgotPasswordPost)).Methods("POST")
+	router.HandleFunc("/resetpassword", auth.IsNotAuth(public.ResetPasswordGet)).Methods("POST")
 	router.HandleFunc("/dashboard", auth.IsAuth(public.Dashboard)).Methods("GET")
 	router.HandleFunc("/dashboard", auth.IsAuth(public.DashboardPost)).Methods("POST")
 	router.HandleFunc("/logout", auth.IsAuth(public.Logout)).Methods("GET")

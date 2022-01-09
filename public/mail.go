@@ -12,10 +12,10 @@ var htmlBody = `
 <html>
 <head>
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-   <title>Hello, World</title>
+   <title>Hello, There</title>
 </head>
 <body>
-   <p>Click The Link To Login</p>
+   <p>Click The Link</p>
 
 `
 
