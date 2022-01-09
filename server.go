@@ -34,6 +34,7 @@ func main() {
 	router.HandleFunc("/dashboard", auth.IsAuth(public.DashboardPost)).Methods("POST")
 	router.HandleFunc("/logout", auth.IsAuth(public.Logout)).Methods("GET")
 	router.HandleFunc("/download/{bookpath}", public.Download).Methods("GET")
+	router.HandleFunc("/delete/{bookpath}", (public.Delete)).Methods("GET")
 	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), router))
 
 }
