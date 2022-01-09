@@ -25,7 +25,7 @@ func SendMail(to string, subject string, body string) {
 	server.Port = 465
 	server.Username = os.Getenv("EMAIL")
 	server.Password = os.Getenv("PASSWORD")
-	server.Encryption = mail.EncryptionTLS
+	server.Encryption = mail.EncryptionSSL
 	smtpClient, err := server.Connect()
 	if err != nil {
 		log.Fatal(err)
