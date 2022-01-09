@@ -2,20 +2,20 @@ package models
 
 import (
 	"database/sql"
-	"fmt"
+	"os"
 )
 
-const (
-	host     = "localhost"
-	port     = 5433
-	user     = "postgres"
-	password = "test123"
-	dbname   = "Go_Prac1"
-)
+// const (
+// 	host     = "localhost"
+// 	port     = 5433
+// 	user     = "postgres"
+// 	password = "test123"
+// 	dbname   = "Go_Prac1"
+// )
 
 func SetupDB() *sql.DB {
-	dbinfo := fmt.Sprintf("host=%s port=%d user=%s "+"password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
-	db, err := sql.Open("postgres", dbinfo)
+	// dbinfo := fmt.Sprintf("host=%s port=%d user=%s "+"password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
+	db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
 
 	CheckErr(err)
 
