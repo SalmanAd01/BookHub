@@ -22,7 +22,7 @@ var htmlBody = `
 func SendMail(to string, subject string, body string) {
 	server := mail.NewSMTPClient()
 	server.Host = "smtp.gmail.com"
-	server.Port = 587
+	server.Port = 465
 	server.Username = os.Getenv("EMAIL")
 	server.Password = os.Getenv("PASSWORD")
 	server.Encryption = mail.EncryptionTLS
