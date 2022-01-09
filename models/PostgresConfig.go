@@ -15,6 +15,7 @@ import (
 
 func SetupDB() *sql.DB {
 	// dbinfo := fmt.Sprintf("host=%s port=%d user=%s "+"password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
+	// db, err := sql.Open("postgres", dbinfo)
 	db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
 
 	CheckErr(err)
