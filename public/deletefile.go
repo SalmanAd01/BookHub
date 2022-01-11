@@ -29,7 +29,7 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 	}
 	err = os.Remove(filepath.Join(file + "/static/bookinfo/" + fileType + "/" + bookpath))
 	if err != nil {
-		fmt.Fprintf(w, "Error deleting file")
+		fmt.Fprintf(w, "Error deleting file "+err.Error())
 		return
 	}
 	if isDB == "true" {
