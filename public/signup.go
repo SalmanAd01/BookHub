@@ -42,7 +42,7 @@ func SignupPost(w http.ResponseWriter, r *http.Request) {
 	var user models.User
 	err := decoder.Decode(&user, r.PostForm)
 	if err != nil {
-		fmt.Println("Error in decoding", err)
+		fmt.Println("Error in decoding", err, r.Form.Get("password"))
 	}
 	salt := []byte(os.Getenv("SALT"))
 	hashpwd, err := scrypt.Key([]byte(user.Password), salt, 16384, 8, 1, 32)

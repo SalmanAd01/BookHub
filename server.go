@@ -9,18 +9,20 @@ import (
 	"os"
 
 	"github.com/gorilla/mux"
+	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )
 
 func main() {
-	// err := godotenv.Load(".env")
+	err := godotenv.Load(".env")
 
-	// if err != nil {
-	// 	log.Fatalf("Error loading .env file")
-	// }
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+	}
 	fmt.Println("http://localhost:5000/")
 	router := mux.NewRouter().StrictSlash(true)
 	router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+	router.PathPrefix("/assets/").Handler(http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
 	router.HandleFunc("/", (public.Home)).Methods("GET")
 	router.HandleFunc("/signin", auth.IsNotAuth(public.SigninGet)).Methods("GET")
 	router.HandleFunc("/signin", auth.IsNotAuth(public.SigninPost)).Methods("POST")

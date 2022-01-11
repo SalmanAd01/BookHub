@@ -9,7 +9,7 @@ import (
 
 func Home(w http.ResponseWriter, r *http.Request) {
 	db := models.SetupDB()
-	query := "SELECT bookpath,imgpath,subjectname,semester,universityname,branch FROM bookinfo"
+	query := "SELECT bookpath,imgpath,subjectname,semester,universityname,branch,bookauthor FROM bookinfo"
 	rows, err := db.Query(query)
 	if err != nil {
 		fmt.Println("Error in getting bookinfo", err)
@@ -20,7 +20,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	for rows.Next() {
 		fmt.Println("book ")
 
-		err = rows.Scan(&book.Bookfile, &book.Bannerimage, &book.Subjectname, &book.Semnumber, &book.Universityname, &book.Branch)
+		err = rows.Scan(&book.Bookfile, &book.Bannerimage, &book.Subjectname, &book.Semnumber, &book.Universityname, &book.Branch, &book.Authorname)
 		if err != nil {
 			fmt.Println("Error in scanning bookinfo", err)
 		}
