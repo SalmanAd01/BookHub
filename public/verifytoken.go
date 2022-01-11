@@ -39,6 +39,7 @@ func VerifyJWT(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Invalid Token"))
 	}
 	db := models.SetupDB()
+	defer db.Close()
 	insertDynStmt := `INSERT INTO userinfo(name,email,password) VALUES($1, $2, $3)`
 	_, e := db.Exec(insertDynStmt, claims.Username, claims.Email, claims.Password)
 	if e != nil {

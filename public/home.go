@@ -15,6 +15,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Error in getting bookinfo", err)
 	}
 	bookinfo := []models.Book{}
+	defer db.Close()
 	defer rows.Close()
 	var book models.Book
 	for rows.Next() {

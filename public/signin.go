@@ -47,6 +47,7 @@ func SigninPost(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println("Some Error occurred")
 	}
+	defer db.Close()
 	defer rows.Close()
 	if rows.Next() {
 		session, _ := Store.Get(r, "auth-session")
