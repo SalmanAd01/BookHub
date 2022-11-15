@@ -1,14 +1,14 @@
 package auth
 
 import (
-	"Bookhub/public"
+	"Bookhub/controller"
 	"fmt"
 	"net/http"
 )
 
 func IsAuth(next http.HandlerFunc) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		session, _ := public.Store.Get(r, "auth-session")
+		session, _ := controller.Store.Get(r, "auth-session")
 		if username, ok := session.Values["username"].(string); ok {
 			fmt.Println("username:-->>> ", username)
 			next.ServeHTTP(w, r)
@@ -19,7 +19,7 @@ func IsAuth(next http.HandlerFunc) http.HandlerFunc {
 }
 func IsNotAuth(next http.HandlerFunc) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		session, _ := public.Store.Get(r, "auth-session")
+		session, _ := controller.Store.Get(r, "auth-session")
 		if username, ok := session.Values["username"].(string); ok {
 			fmt.Println("username:-->>> ", username)
 			http.Redirect(w, r, "/dashboard", http.StatusUnauthorized)

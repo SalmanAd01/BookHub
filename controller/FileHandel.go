@@ -1,4 +1,4 @@
-package public
+package controller
 
 import (
 	"encoding/hex"

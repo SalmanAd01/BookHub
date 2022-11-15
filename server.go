@@ -1,8 +1,8 @@
 package main
 
 import (
+	"Bookhub/controller"
 	"Bookhub/middleware/auth"
-	"Bookhub/public"
 	"fmt"
 	"log"
 	"net/http"
@@ -22,20 +22,20 @@ func main() {
 	router := mux.NewRouter().StrictSlash(true)
 	router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	router.PathPrefix("/assets/").Handler(http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
-	router.HandleFunc("/", (public.Home)).Methods("GET")
-	router.HandleFunc("/signin", auth.IsNotAuth(public.SigninGet)).Methods("GET")
-	router.HandleFunc("/signin", auth.IsNotAuth(public.SigninPost)).Methods("POST")
-	router.HandleFunc("/signup", auth.IsNotAuth(public.SignupGet)).Methods("GET")
-	router.HandleFunc("/signup", auth.IsNotAuth(public.SignupPost)).Methods("POST")
-	router.HandleFunc("/verifytoken/{token}", public.VerifyJWT).Methods("GET")
-	router.HandleFunc("/forgotpassword/{token}", auth.IsNotAuth(public.ForgotPasswordGet)).Methods("GET")
-	router.HandleFunc("/forgotpassword/{token}", auth.IsNotAuth(public.ForgotPasswordPost)).Methods("POST")
-	router.HandleFunc("/resetpassword", auth.IsNotAuth(public.ResetPasswordGet)).Methods("POST")
-	router.HandleFunc("/dashboard", auth.IsAuth(public.Dashboard)).Methods("GET")
-	router.HandleFunc("/dashboard", auth.IsAuth(public.DashboardPost)).Methods("POST")
-	router.HandleFunc("/logout", auth.IsAuth(public.Logout)).Methods("GET")
-	router.HandleFunc("/download/{bookpath}", public.Download).Methods("GET")
-	router.HandleFunc("/delete/{bookpath}", (public.Delete)).Methods("GET")
+	router.HandleFunc("/", (controller.Home)).Methods("GET")
+	router.HandleFunc("/signin", auth.IsNotAuth(controller.SigninGet)).Methods("GET")
+	router.HandleFunc("/signin", auth.IsNotAuth(controller.SigninPost)).Methods("POST")
+	router.HandleFunc("/signup", auth.IsNotAuth(controller.SignupGet)).Methods("GET")
+	router.HandleFunc("/signup", auth.IsNotAuth(controller.SignupPost)).Methods("POST")
+	router.HandleFunc("/verifytoken/{token}", controller.VerifyJWT).Methods("GET")
+	router.HandleFunc("/forgotpassword/{token}", auth.IsNotAuth(controller.ForgotPasswordGet)).Methods("GET")
+	router.HandleFunc("/forgotpassword/{token}", auth.IsNotAuth(controller.ForgotPasswordPost)).Methods("POST")
+	router.HandleFunc("/resetpassword", auth.IsNotAuth(controller.ResetPasswordGet)).Methods("POST")
+	router.HandleFunc("/dashboard", auth.IsAuth(controller.Dashboard)).Methods("GET")
+	router.HandleFunc("/dashboard", auth.IsAuth(controller.DashboardPost)).Methods("POST")
+	router.HandleFunc("/logout", auth.IsAuth(controller.Logout)).Methods("GET")
+	router.HandleFunc("/download/{bookpath}", controller.Download).Methods("GET")
+	router.HandleFunc("/delete/{bookpath}", (controller.Delete)).Methods("GET")
 	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), router))
 
 }
