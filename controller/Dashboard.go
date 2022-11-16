@@ -2,6 +2,7 @@ package controller
 
 import (
 	"Bookhub/db"
+	"Bookhub/helper"
 	"Bookhub/models"
 	"fmt"
 	"net/http"
@@ -26,9 +27,9 @@ func DashboardPost(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Error in decoding", err)
 	}
 	fmt.Println("Book: -->>>", book)
-	bookpath, err := SaveFileToDestination(book.Subjectname+"-", book.Semnumber+"-", book.Universityname+"-", r)
+	bookpath, err := helper.SaveFileToDestination(book.Subjectname+"-", book.Semnumber+"-", book.Universityname+"-", r)
 	fmt.Println("err ", err, " name ", bookpath)
-	imagepath, err := SaveImgToDestination(book.Subjectname+"-", book.Semnumber+"-", book.Universityname+"-", r)
+	imagepath, err := helper.SaveImgToDestination(book.Subjectname+"-", book.Semnumber+"-", book.Universityname+"-", r)
 	fmt.Println("err ", err, " name ", imagepath)
 	session, err := Store.Get(r, "auth-session")
 	if err != nil {
