@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"Bookhub/models"
+	"Bookhub/db"
 	"encoding/hex"
 	"fmt"
 	"log"
@@ -93,18 +93,13 @@ func ForgotPasswordPost(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Println(err)
 		}
-		db := models.SetupDB()
+		db := db.Connect()
 		defer db.Close()
 		query := "UPDATE userinfo SET password = $1 WHERE email = $2"
 		_, err = db.Exec(query, password1, claims.Email)
 		if err != nil {
 			log.Println(err)
 		}
-		// w.Write([]byte("Password changed successfully"))
 		http.Redirect(w, r, "/signin", http.StatusFound)
 	}
-	// w.WriteHeader(http.StatusOK)
-	// w.Write([]byte("Password updated successfully"))
-
-	// password:=r.FormValue("password")
 }

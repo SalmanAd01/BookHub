@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"Bookhub/models"
+	"Bookhub/db"
 	"fmt"
 	"net/http"
 	"os"
@@ -38,7 +38,7 @@ func VerifyJWT(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("err ", err)
 		w.Write([]byte("Invalid Token"))
 	}
-	db := models.SetupDB()
+	db := db.Connect()
 	defer db.Close()
 	insertDynStmt := `INSERT INTO userinfo(name,email,password) VALUES($1, $2, $3)`
 	_, e := db.Exec(insertDynStmt, claims.Username, claims.Email, claims.Password)

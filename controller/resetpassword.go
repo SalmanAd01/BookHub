@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"Bookhub/models"
+	"Bookhub/db"
 	"fmt"
 	"net/http"
 	"os"
@@ -18,7 +18,7 @@ func ResetPasswordGet(w http.ResponseWriter, r *http.Request) {
 	}
 	email := r.Form.Get("emailforget")
 	fmt.Println("email ", email)
-	db := models.SetupDB()
+	db := db.Connect()
 	query := "SELECT id FROM userinfo WHERE email = '" + email + "'"
 	rows, err := db.Query(query)
 	if err != nil {

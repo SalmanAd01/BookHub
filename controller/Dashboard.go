@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"Bookhub/db"
 	"Bookhub/models"
 	"fmt"
 	"net/http"
@@ -36,7 +37,7 @@ func DashboardPost(w http.ResponseWriter, r *http.Request) {
 	currentUser := session.Values["userid"].(int)
 	session.Save(r, w)
 	fmt.Println("currentUser ", reflect.TypeOf(currentUser))
-	db := models.SetupDB()
+	db := db.Connect()
 	defer db.Close()
 	query := "INSERT INTO bookinfo (bookpath, imgpath, subjectname, bookauthor, semester, branch, universityname, userid) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)"
 	_, err = db.Exec(query, bookpath, imagepath, book.Subjectname, book.Authorname, book.Semnumber, book.Branch, book.Universityname, currentUser)

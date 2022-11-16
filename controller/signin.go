@@ -1,6 +1,7 @@
 package controller
 
 import (
+	dbs "Bookhub/db"
 	"Bookhub/models"
 	"encoding/hex"
 	"fmt"
@@ -41,7 +42,7 @@ func SigninPost(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println("password ", user.Password)
 	fmt.Println("email ", user.Email)
-	db := models.SetupDB()
+	db := dbs.Connect()
 	query := "SELECT id FROM userinfo WHERE email = '" + user.Email + "' AND password = '" + user.Password + "'"
 	rows, err := db.Query(query)
 	if err != nil {
@@ -70,5 +71,5 @@ func SigninPost(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("No rows")
 		w.Write([]byte("Signup unSuccessful"))
 	}
-	models.CheckErr(err)
+	dbs.CheckErr(err)
 }

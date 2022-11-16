@@ -1,5 +1,6 @@
 -- creating schema
--- User table with name email and password
+
+-- User table
 CREATE TABLE IF NOT EXISTS userinfo (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -7,11 +8,10 @@ CREATE TABLE IF NOT EXISTS userinfo (
     password VARCHAR(255) NOT NULL
 );
 
--- Book table with Authorname,Subjectname,Semnumber,Branch,Universityname,Bookfile and Bannerimage
-
+-- Book table
 CREATE TABLE IF NOT EXISTS bookinfo (
     id SERIAL PRIMARY KEY,
-    bookauthor VARCHAR(255) NOT NULL,
+    bookauthor FOREIGN KEY REFERENCES userinfo(id),
     subjectname VARCHAR(255) NOT NULL,
     semester VARCHAR(255) NOT NULL,
     branch VARCHAR(255) NOT NULL,

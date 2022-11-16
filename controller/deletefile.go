@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"Bookhub/models"
+	"Bookhub/db"
 	"fmt"
 	"net/http"
 	"os"
@@ -33,7 +33,7 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if isDB == "true" {
-		db := models.SetupDB()
+		db := db.Connect()
 		defer db.Close()
 		query := "DELETE FROM bookinfo WHERE bookpath = $1"
 		_, err = db.Exec(query, bookpath)

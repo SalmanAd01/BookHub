@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"Bookhub/db"
 	"Bookhub/models"
 	"fmt"
 	"net/http"
@@ -8,7 +9,7 @@ import (
 )
 
 func Home(w http.ResponseWriter, r *http.Request) {
-	db := models.SetupDB()
+	db := db.Connect()
 	query := "SELECT bookpath,imgpath,subjectname,semester,universityname,branch,bookauthor FROM bookinfo"
 	rows, err := db.Query(query)
 	if err != nil {
@@ -34,13 +35,4 @@ func Home(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Error in parsing home.html", err)
 	}
 	t.Execute(w, bookinfo)
-	// http.ServeFile(w, r, "./views/index.html")
 }
-
-// 	t, err := template.ParseFiles("views/index.html")
-// 	if err != nil {
-// 		fmt.Println("Error in parsing template", err)
-// 	}
-// 	t.Execute(w, []int{1, 2, 3})
-// 	// fmt.Println("Home")
-// }
