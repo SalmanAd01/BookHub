@@ -1,5 +1,5 @@
 # BookHub
-Link : https://goapptesting.herokuapp.com/
+Link : https://bookkhub.herokuapp.com/
 #### Get Started
 copy the .env.exmaple to .env
 
