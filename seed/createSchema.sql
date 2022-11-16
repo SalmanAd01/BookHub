@@ -19,11 +19,3 @@ CREATE TABLE IF NOT EXISTS bookinfo (
     bookpath VARCHAR(255) NOT NULL,
     imgpath VARCHAR(255) NOT NULL
 );
-          
-CREATE TABLE IF NOT EXISTS Role(
-RoleID SERIAL PRIMARY KEY,
-RoleName varchar(50)
-);    
-
-insert into Role (RoleName)
-values ('Admin');
