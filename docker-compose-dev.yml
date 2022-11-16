@@ -33,8 +33,10 @@ services:
       - .env
     volumes:
       - ./:/app
+      - upload-bookhub:/app/static/bookinfo
     depends_on:
       - postgres
     command: air
 volumes:
   postgres-bookhub:
+  upload-bookhub:

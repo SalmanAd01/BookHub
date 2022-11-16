@@ -1,3 +1,3 @@
 INSERT INTO userinfo (id,name, email, password) VALUES (1,'tr','t@gmail.com','f69fcb5c5e0528e4a8e066becff341b2ffa1580630d29fcf5ff516a782f25250');
 
-INSERT INTO bookinfo (id,bookauthor, subjectname, semester, branch, universityname, bookpath, imgpath) VALUES (1,'gv kumbhojkar','Mathematics','sem 1','Computer Engineer','Mumbai University','Maths-Sem1-Mumbai University-8e9967e383c69d4d915b6f1ff3c47f551c8552beee038f17f2b28afd1abe3241.pdf','Maths-Sem1-Mumbai University-094ab2a0b873631d830cee79afd27a30aefbcadd1f8ac3f3d682a45e09d1beec.png');
+INSERT INTO bookinfo (id,bookauthor, subjectname, semester, branch, universityname, bookpath, imgpath,userid) VALUES (1,'gv kumbhojkar','Mathematics','sem 1','Computer Engineer','Mumbai University','Maths-Sem1-Mumbai University-8e9967e383c69d4d915b6f1ff3c47f551c8552beee038f17f2b28afd1abe3241.pdf','Maths-Sem1-Mumbai University-094ab2a0b873631d830cee79afd27a30aefbcadd1f8ac3f3d682a45e09d1beec.png',1);
