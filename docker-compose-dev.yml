@@ -1,0 +1,40 @@
+version: '3.4'
+
+services:
+  postgres:
+    image: postgres:9.6
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - ./seed/createSchema.sql:/docker-entrypoint-initdb.d/create_tables.sql
+      - ./seed/fillTables.sql:/docker-entrypoint-initdb.d/fill_tables.sql
+      - postgres-bookhub:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  bookhub:
+    image: bookhub
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 5000:5000
+    environment:
+      GO_ENV: development
+    env_file:
+      - .env
+    volumes:
+      - ./:/app
+    depends_on:
+      - postgres
+    command: air
+volumes:
+  postgres-bookhub:

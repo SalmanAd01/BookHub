@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  bookhub:
+    image: bookhub
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 5000:5000
