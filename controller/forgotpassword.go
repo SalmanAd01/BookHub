@@ -9,7 +9,7 @@ import (
 	"os"
 	"text/template"
 
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt/v4"
 	"github.com/gorilla/mux"
 	"golang.org/x/crypto/scrypt"
 )
