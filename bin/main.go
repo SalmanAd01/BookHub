@@ -5,6 +5,6 @@ import (
 )
 
 func CreateServer() *mux.Router {
-	mux := mux.NewRouter().StrictSlash(true)
-	return mux
+	server := mux.NewRouter().StrictSlash(true)
+	return server
 }

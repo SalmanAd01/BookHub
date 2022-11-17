@@ -22,48 +22,72 @@ func SigninGet(w http.ResponseWriter, r *http.Request) {
 }
 func SigninPost(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("POST")
+
 	if err := r.ParseForm(); err != nil {
 		fmt.Fprintf(w, "ParseForm() err: %v", err)
 		return
 	}
+
 	var decoder = schema.NewDecoder()
+
 	var user models.User
 	err := decoder.Decode(&user, r.PostForm)
+
 	if err != nil {
 		fmt.Println("Error in decoding", err)
 	}
+
 	fmt.Println("password --->>", user.Password)
 	fmt.Println("username -->>>", user.Name)
+
 	salt := []byte(os.Getenv("SALT"))
-	hashpwd, err := scrypt.Key([]byte(user.Password), salt, 16384, 8, 1, 32)
+
+	const (
+		MEMORYCOST = 16384
+		THREADS    = 8
+		KEYLENGTH  = 32
+	)
+
+	hashpwd, err := scrypt.Key([]byte(user.Password), salt, MEMORYCOST, THREADS, 1, KEYLENGTH)
+
 	user.Password = hex.EncodeToString(hashpwd)
+
 	if err != nil {
 		log.Println(err)
 	}
+
 	fmt.Println("password ", user.Password)
 	fmt.Println("email ", user.Email)
+
 	db := dbs.Connect()
 	query := "SELECT id FROM userinfo WHERE email = '" + user.Email + "' AND password = '" + user.Password + "'"
 	rows, err := db.Query(query)
+
 	if err != nil {
 		fmt.Println("Some Error occurred")
 	}
 	defer db.Close()
+
 	defer rows.Close()
+
+	const MAXAGE = 60 * 60 * 24 * 7
+
 	if rows.Next() {
 		session, _ := Store.Get(r, "auth-session")
 		session.Options = &sessions.Options{
 			Path:     "/",
-			MaxAge:   900,
+			MaxAge:   MAXAGE,
 			HttpOnly: true,
 		}
-		fmt.Println("rows ", rows)
 		session.Values["username"] = user.Name
+
 		var id int
 		err = rows.Scan(&id)
+
 		if err != nil {
 			fmt.Println("Error in scanning")
 		}
+
 		session.Values["userid"] = id
 		session.Save(r, w)
 		http.Redirect(w, r, "/dashboard", http.StatusFound)
@@ -71,5 +95,6 @@ func SigninPost(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("No rows")
 		w.Write([]byte("Signup unSuccessful"))
 	}
+
 	dbs.CheckErr(err)
 }

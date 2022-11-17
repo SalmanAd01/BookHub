@@ -19,7 +19,7 @@ var htmlBody = `
 
 `
 
-func SendMail(to string, subject string, body string) {
+func SendMail(to, subject, body string) {
 	server := mail.NewSMTPClient()
 	server.Host = "smtp.gmail.com"
 	server.Port = 465
@@ -27,15 +27,18 @@ func SendMail(to string, subject string, body string) {
 	server.Password = os.Getenv("PASSWORD")
 	server.Encryption = mail.EncryptionSSL
 	smtpClient, err := server.Connect()
+
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	email := mail.NewMSG()
 	email.AddTo(to)
 	email.SetSubject(subject)
 
 	email.SetBody(mail.TextHTML, htmlBody+"<p>"+body+"</p></body>")
 	err = email.Send(smtpClient)
+
 	if err != nil {
 		log.Fatal(err)
 	}
