@@ -31,3 +31,8 @@ Build and run the image
 ```
    docker compose -f .\docker-compose-dev.yml up
 ```
+
+### To Run Lint
+```
+  golangci-lint run
+```
